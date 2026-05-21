@@ -96,6 +96,7 @@ print(f"Probability of Placement: {placement_prob[0][1]:.2f}")
 Confusion Matrix:
 
  [[1 0]
+ 
  [0 1]]
 
 Accuracy Score: 1.0
