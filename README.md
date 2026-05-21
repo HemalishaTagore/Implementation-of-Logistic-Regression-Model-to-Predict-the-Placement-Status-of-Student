@@ -94,6 +94,7 @@ print(f"Probability of Placement: {placement_prob[0][1]:.2f}")
 
 ## Output:
 Confusion Matrix:
+
  [[1 0]
  [0 1]]
 
@@ -103,10 +104,13 @@ Classification Report:
                precision    recall  f1-score   support
 
            0       1.00      1.00      1.00         1
+           
            1       1.00      1.00      1.00         1
 
     accuracy                           1.00         2
+    
    macro avg       1.00      1.00      1.00         2
+   
 weighted avg       1.00      1.00      1.00         2
 
 
