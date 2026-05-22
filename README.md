@@ -14,14 +14,13 @@ To write a program to implement the the Logistic Regression Model to Predict the
 4. 
 
 ## Program:
-```
-/*
-Program to implement the the Logistic Regression Model to Predict the Placement Status of Student.
-Developed by: 
-RegisterNumber:  
-*/
+
+## Developed by: HEMALISHA T 
+## RegisterNumber: 212225040123
+
 ```
 
+```
 ## Output:
 ![the Logistic Regression Model to Predict the Placement Status of Student](sam.png)
 
