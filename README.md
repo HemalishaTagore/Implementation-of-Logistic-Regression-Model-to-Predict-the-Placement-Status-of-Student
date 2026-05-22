@@ -8,7 +8,7 @@ To write a program to implement the the Logistic Regression Model to Predict the
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 1.Prepare: Load the dataset and perform one-hot encoding on categorical features.
+1. Prepare: Load the dataset and perform one-hot encoding on categorical features.
 2. Split: Divide the feature set (X) and target (y) into training and testing subsets.
 3. Train: Initialize the Logistic Regression model and fit it to the training data.
 4. Evaluate: Calculate the model's accuracy score using the test dataset.
