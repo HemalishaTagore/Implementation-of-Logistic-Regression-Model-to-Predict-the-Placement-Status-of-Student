@@ -21,47 +21,60 @@ To write a program to implement the the Logistic Regression Model to Predict the
 
 ```
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-data = {
-    'Hours_Studied': [2, 3, 4, 5, 6, 7, 8, 9],
-    'Previous_Score': [40, 50, 55, 60, 65, 70, 75, 80],
-    'Internship': [0, 0, 1, 0, 1, 1, 1, 1],  # 0 = No, 1 = Yes
-    'Placement': [0, 0, 0, 1, 1, 1, 1, 1]    # Target: 0 = Not Placed, 1 = Placed
-}
+df = pd.read_csv("Placement_Data.csv")
 
-df = pd.DataFrame(data)
+label = LabelEncoder()
 
-X = df[['Hours_Studied', 'Previous_Score', 'Internship']]
-y = df['Placement']
+df['gender'] = label.fit_transform(df['gender'])
+df['ssc_b'] = label.fit_transform(df['ssc_b'])
+df['hsc_b'] = label.fit_transform(df['hsc_b'])
+df['hsc_s'] = label.fit_transform(df['hsc_s'])
+df['degree_t'] = label.fit_transform(df['degree_t'])
+df['workex'] = label.fit_transform(df['workex'])
+df['specialisation'] = label.fit_transform(df['specialisation'])
+df['status'] = label.fit_transform(df['status'])
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+X = df[['ssc_p','hsc_p','degree_p','etest_p','mba_p']]
 
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+y = df['status']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 model = LogisticRegression()
+
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
 
-print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
-print("\nAccuracy Score:", accuracy_score(y_test, y_pred))
-print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
 
-new_student = np.array([[6, 68, 1]])  # Example: 6 hours studied, 68 prev score, Internship yes
-new_student_scaled = scaler.transform(new_student)
-placement_pred = model.predict(new_student_scaled)
-placement_prob = model.predict_proba(new_student_scaled)
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
 
-print(f"\nPredicted Placement Status: {'Placed' if placement_pred[0]==1 else 'Not Placed'}")
-print(f"Probability of Placement: {placement_prob[0][1]:.2f}")
+plt.scatter(df['mba_p'], df['etest_p'], c=df['status'])
 
+plt.xlabel("MBA Percentage")
+plt.ylabel("Etest Percentage")
+plt.title("Student Placement Prediction")
+
+plt.show()
+
+new_student = [[75, 70, 80, 85, 78]]
+
+prediction = model.predict(new_student)
+
+if prediction[0] == 1:
+    print("Placed")
+else:
+    print("Not Placed")
 ```
 ## Output:
 ![the Logistic Regression Model to Predict the Placement Status of Student](5.png)
