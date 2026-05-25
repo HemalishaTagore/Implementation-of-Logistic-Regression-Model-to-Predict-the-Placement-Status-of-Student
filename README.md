@@ -60,7 +60,8 @@ plt.xlabel("Sepal Length")
 plt.ylabel("Sepal Width")
 plt.title("Iris Flower Classification")
 
-plt.show()```
+plt.show()
+```
 ## Output:
 ![the Logistic Regression Model to Predict the Placement Status of Student](5.png)
 
