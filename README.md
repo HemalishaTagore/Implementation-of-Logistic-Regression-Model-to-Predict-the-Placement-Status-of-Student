@@ -21,23 +21,34 @@ To write a program to implement the the Logistic Regression Model to Predict the
 
 ```
 import pandas as pd
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import SGDClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-iris = load_iris()
+df = pd.read_csv("Placement_Data.csv")
 
-X = iris.data
+label = LabelEncoder()
 
-y = iris.target
+df['gender'] = label.fit_transform(df['gender'])
+df['ssc_b'] = label.fit_transform(df['ssc_b'])
+df['hsc_b'] = label.fit_transform(df['hsc_b'])
+df['hsc_s'] = label.fit_transform(df['hsc_s'])
+df['degree_t'] = label.fit_transform(df['degree_t'])
+df['workex'] = label.fit_transform(df['workex'])
+df['specialisation'] = label.fit_transform(df['specialisation'])
+df['status'] = label.fit_transform(df['status'])
+
+X = df[['ssc_p','hsc_p','degree_p','etest_p','mba_p']]
+
+y = df['status']
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-model = SGDClassifier()
+model = LogisticRegression()
 
 model.fit(X_train, y_train)
 
@@ -48,19 +59,22 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
-new_flower = [[5.1, 3.5, 1.4, 0.2]]
+plt.scatter(df['mba_p'], df['etest_p'], c=df['status'])
 
-prediction = model.predict(new_flower)
-
-print("Predicted Species:", iris.target_names[prediction][0])
-
-plt.scatter(X[:,0], X[:,1], c=y)
-
-plt.xlabel("Sepal Length")
-plt.ylabel("Sepal Width")
-plt.title("Iris Flower Classification")
+plt.xlabel("MBA Percentage")
+plt.ylabel("Etest Percentage")
+plt.title("Student Placement Prediction")
 
 plt.show()
+
+new_student = [[75, 70, 80, 85, 78]]
+
+prediction = model.predict(new_student)
+
+if prediction[0] == 1:
+    print("Placed")
+else:
+    print("Not Placed")
 ```
 ## Output:
 ![the Logistic Regression Model to Predict the Placement Status of Student](5.png)
